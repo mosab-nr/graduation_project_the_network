@@ -12,27 +12,30 @@ class CompetitionsScreen extends StatefulWidget {
 }
 
 class _CompetitionsScreenState extends State<CompetitionsScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('competitions').snapshots(),
-      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
-        }
+@override
+Widget build(BuildContext context) {
+  return StreamBuilder(
+    stream: FirebaseFirestore.instance.collection('competitions').snapshots(),
+    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      if (!snapshot.hasData) {
+        return const Center(child: CircularProgressIndicator());
+      }
+      if (snapshot.data!.docs.isEmpty) {
+        return const Center(child: Text('لا يوجد بيانات'));
+      }
 
-        final competitions = snapshot.data!.docs
-            .map((doc) => Competition.fromDocument(doc))
-            .toList();
+      final competitions = snapshot.data!.docs
+          .map((doc) => Competition.fromDocument(doc))
+          .toList();
 
-        return ListView.builder(
-          itemCount: competitions.length,
-          itemBuilder: (context, index) {
-            final competition = competitions[index];
-            return CompetitionCard(competition: competition);
-          },
-        );
-      },
-    );
-  }
+      return ListView.builder(
+        itemCount: competitions.length,
+        itemBuilder: (context, index) {
+          final competition = competitions[index];
+          return CompetitionCard(competition: competition);
+        },
+      );
+    },
+  );
+}
 }

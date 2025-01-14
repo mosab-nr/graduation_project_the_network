@@ -85,6 +85,9 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
                   if (!snapshot.hasData) {
                     return const Center(child: CircularProgressIndicator());
                   }
+                  if (snapshot.data!.docs.isEmpty) {
+                    return const Center(child: Text('لا يوجد بيانات'));
+                  }
                   final complaints = snapshot.data!.docs;
                   return ListView.builder(
                     itemCount: complaints.length,

@@ -55,6 +55,9 @@ dependencies:
   shared_preferences: ^2.3.2
   flutter_local_notifications: ^17.2.2
   faker: ^2.2.0
+  googleapis: ^13.2.0
+  google_sign_in: ^6.2.2
+  googleapis_auth: ^1.6.0
 
 dev_dependencies:
   flutter_test:
