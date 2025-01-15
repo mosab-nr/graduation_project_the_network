@@ -24,6 +24,7 @@ void configureFirestore() {
   );
 }
 
+
 Future<void> addTemplateDataToFirestore() async {
   // Initialize Firebase
   await Firebase.initializeApp();

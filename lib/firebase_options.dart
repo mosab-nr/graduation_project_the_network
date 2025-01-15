@@ -50,22 +50,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAHZ0LYSZtwalApA6hSArQwFzVGsxeAfUg',
-    appId: '1:524455299014:android:005283a18b883dc0da94c7',
-    messagingSenderId: '524455299014',
-    projectId: 'the-network-app-6b78f',
-    databaseURL: 'https://the-network-app-6b78f-default-rtdb.firebaseio.com',
-    storageBucket: 'the-network-app-6b78f.firebasestorage.app',
+    apiKey: 'AIzaSyCv067b1znpBFTmyB1deCTqNVApaksUB8I',
+    appId: '1:629425550281:android:447449baaa3026a72f6e18',
+    messagingSenderId: '629425550281',
+    projectId: 'the-network-8d7e2',
+    databaseURL: 'https://the-network-8d7e2-default-rtdb.firebaseio.com',
+    storageBucket: 'the-network-8d7e2.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAD3ree-kC-VPKK_wTiu6hDR36rNnuOVv4',
-    appId: '1:524455299014:ios:b96942b98a626575da94c7',
-    messagingSenderId: '524455299014',
-    projectId: 'the-network-app-6b78f',
-    databaseURL: 'https://the-network-app-6b78f-default-rtdb.firebaseio.com',
-    storageBucket: 'the-network-app-6b78f.firebasestorage.app',
+    apiKey: 'AIzaSyAMMMudF4rfPB5ghPcgnyziXeUHqJ3WXtM',
+    appId: '1:629425550281:ios:c0cafb57c15d513d2f6e18',
+    messagingSenderId: '629425550281',
+    projectId: 'the-network-8d7e2',
+    databaseURL: 'https://the-network-8d7e2-default-rtdb.firebaseio.com',
+    storageBucket: 'the-network-8d7e2.firebasestorage.app',
     iosBundleId: 'com.garduation.theNetworkApp',
   );
-
 }

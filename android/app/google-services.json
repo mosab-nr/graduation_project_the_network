@@ -1,14 +1,14 @@
 {
   "project_info": {
-    "project_number": "524455299014",
-    "firebase_url": "https://the-network-app-6b78f-default-rtdb.firebaseio.com",
-    "project_id": "the-network-app-6b78f",
-    "storage_bucket": "the-network-app-6b78f.firebasestorage.app"
+    "project_number": "629425550281",
+    "firebase_url": "https://the-network-8d7e2-default-rtdb.firebaseio.com",
+    "project_id": "the-network-8d7e2",
+    "storage_bucket": "the-network-8d7e2.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:524455299014:android:005283a18b883dc0da94c7",
+        "mobilesdk_app_id": "1:629425550281:android:447449baaa3026a72f6e18",
         "android_client_info": {
           "package_name": "com.garduation.the_network_app"
         }
@@ -16,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAHZ0LYSZtwalApA6hSArQwFzVGsxeAfUg"
+          "current_key": "AIzaSyCv067b1znpBFTmyB1deCTqNVApaksUB8I"
         }
       ],
       "services": {
