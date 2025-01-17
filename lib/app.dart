@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: RouteName.splashScreen,

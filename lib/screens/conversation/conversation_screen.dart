@@ -163,9 +163,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(user['profileImageUrl']),
-              ),
+              // CircleAvatar(
+              //   backgroundImage: NetworkImage(user['profileImageUrl']),
+              // ),
               SizedBox(width: 10),
               Expanded(
                 child: Column(

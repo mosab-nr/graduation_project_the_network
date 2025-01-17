@@ -74,35 +74,37 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
     }
   }
 
-  void _addComment() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null && _commentController.text.isNotEmpty) {
-      final userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-      final comment = {
-        'text': _commentController.text,
-        'username': userDoc['name'] ?? 'Anonymous',
-        'profileImageUrl': userDoc['profileImageUrl'] ?? 'https://via.placeholder.com/150',
-        'timestamp': Timestamp.now(),
-      };
+void _addComment() async {
+  final user = FirebaseAuth.instance.currentUser;
+  if (user != null && _commentController.text.isNotEmpty) {
+    final userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+    final userData = userDoc.data() as Map<String, dynamic>?;
 
-      await FirebaseFirestore.instance
-          .collection('competitions')
-          .doc(widget.competition.id)
-          .collection('comments')
-          .add(comment);
+    final comment = {
+      'text': _commentController.text,
+      'username': userData?['name'] ?? 'Anonymous',
+      'profileImageUrl': userData?['profileImageUrl'] ?? 'https://eu.ui-avatars.com/api/?name=${userData?['name'] ?? 'Anonymous'}&size=250',
+      'timestamp': Timestamp.now(),
+    };
 
-      setState(() {
-        commentsCount++;
-      });
+    await FirebaseFirestore.instance
+        .collection('competitions')
+        .doc(widget.competition.id)
+        .collection('comments')
+        .add(comment);
 
-      FirebaseFirestore.instance
-          .collection('competitions')
-          .doc(widget.competition.id)
-          .update({'comments': commentsCount});
+    setState(() {
+      commentsCount++;
+    });
 
-      _commentController.clear();
-    }
+    FirebaseFirestore.instance
+        .collection('competitions')
+        .doc(widget.competition.id)
+        .update({'comments': commentsCount});
+
+    _commentController.clear();
   }
+}
 
   String formatTimestamp(Timestamp timestamp) {
     DateTime dateTime = timestamp.toDate();
@@ -124,99 +126,110 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
         appBar: AppBar(
           title: Text(widget.competition.title),
         ),
-        body: Column(
-          children: [
-            Image.network(widget.competition.imageUrl),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                widget.competition.description,
-                style: const TextStyle(fontSize: 16),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          isLiked ? Icons.thumb_up : Icons.thumb_up_outlined,
-                          color: isLiked ? Colors.blue : Colors.black,
-                        ),
-                        onPressed: handleLike,
-                      ),
-                      Text('$likesCount'),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.comment),
-                        onPressed: () {
-                          // Handle comment functionality
-                        },
-                      ),
-                      Text('$commentsCount'),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _commentController,
-                      decoration: const InputDecoration(
-                        hintText: 'Add a comment...',
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  children: [
+                    Image.network(widget.competition.imageUrl),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        widget.competition.description,
+                        style: const TextStyle(fontSize: 16),
                       ),
                     ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.send),
-                    onPressed: _addComment,
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('competitions')
-                    .doc(widget.competition.id)
-                    .collection('comments')
-                    .orderBy('timestamp', descending: true)
-                    .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              IconButton(
+                                icon: Icon(
+                                  isLiked ? Icons.thumb_up : Icons.thumb_up_outlined,
+                                  color: isLiked ? Colors.blue : Colors.black,
+                                ),
+                                onPressed: handleLike,
+                              ),
+                              Text('$likesCount'),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.comment),
+                                onPressed: () {
+                                  // Handle comment functionality
+                                },
+                              ),
+                              Text('$commentsCount'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: _commentController,
+                              decoration: const InputDecoration(
+                                hintText: 'Add a comment...',
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.send),
+                            onPressed: _addComment,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 400, // Provide a fixed height for the ListView
+                      child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('competitions')
+                            .doc(widget.competition.id)
+                            .collection('comments')
+                            .orderBy('timestamp', descending: true)
+                            .snapshots(),
+                        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(child: CircularProgressIndicator());
+                          }
 
-                  final comments = snapshot.data!.docs;
+                          final comments = snapshot.data!.docs;
 
-                  return ListView.builder(
-                    itemCount: comments.length,
-                    itemBuilder: (context, index) {
-                      final comment = comments[index];
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(comment['profileImageUrl']),
-                        ),
-                        title: Text(comment['username']),
-                        subtitle: Text(comment['text']),
-                        trailing: Text(formatTimestamp(comment['timestamp'])),
-                      );
-                    },
-                  );
-                },
-              ),
+                          return ListView.builder(
+                            itemCount: comments.length,
+                            itemBuilder: (context, index) {
+                              final comment = comments[index];
+                              return ListTile(
+                                leading: CircleAvatar(
+                                  backgroundImage: NetworkImage(comment['profileImageUrl']),
+                                ),
+                                title: Text(comment['username']),
+                                subtitle: Text(comment['text']),
+                                trailing: Text(formatTimestamp(comment['timestamp'])),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

@@ -24,7 +24,7 @@ class _SuggestionsScreen extends State<SuggestionsScreen> {
         id: '',
         userId: user.uid,
         userName: userData['name'],
-        userProfileImageUrl: userData['profileImageUrl'],
+        // userProfileImageUrl: userData['profileImageUrl'],
         description: _complaintController.text,
         likes: 0,
       );
@@ -186,9 +186,9 @@ class _ComplaintCardState extends State<ComplaintCard> {
 
     return Card(
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundImage: NetworkImage(widget.complaint.userProfileImageUrl),
-        ),
+        // leading: CircleAvatar(
+        //   backgroundImage: NetworkImage(widget.complaint.userProfileImageUrl),
+        // ),
         title: Text(widget.complaint.userName),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

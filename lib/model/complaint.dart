@@ -4,7 +4,7 @@ class Complaint {
   final String id;
   final String userId;
   final String userName;
-  final String userProfileImageUrl;
+  // final String userProfileImageUrl;
   final String description;
   final int likes;
 
@@ -12,7 +12,7 @@ class Complaint {
     required this.id,
     required this.userId,
     required this.userName,
-    required this.userProfileImageUrl,
+    // required this.userProfileImageUrl,
     required this.description,
     this.likes = 0,
   });
@@ -26,7 +26,7 @@ class Complaint {
       id: doc.id,
       userId: doc['userId'],
       userName: userDoc['name'],
-      userProfileImageUrl: userDoc['profileImageUrl'],
+      // userProfileImageUrl: userDoc['profileImageUrl'],
       description: doc['description'],
       likes: doc['likes'],
     );
@@ -36,7 +36,7 @@ class Complaint {
     return {
       'userId': userId,
       'userName': userName,
-      'userProfileImageUrl': userProfileImageUrl,
+      // 'userProfileImageUrl': userProfileImageUrl,
       'description': description,
       'likes': likes,
     };
