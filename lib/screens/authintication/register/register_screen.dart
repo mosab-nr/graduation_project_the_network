@@ -78,12 +78,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return 'من فضلك أدخل البريد الإلكتروني';
                       }
                       // Regular expression for email validation
-                      final RegExp emailRegExp = RegExp(
-                        r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-                      );
-                      if (!emailRegExp.hasMatch(value)) {
-                        return 'من فضلك أدخل بريد إلكتروني صحيح';
-                      }
+                      // final RegExp emailRegExp = RegExp(
+                      //   r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                      // );
+                      // if (!emailRegExp.hasMatch(value)) {
+                      //   return 'من فضلك أدخل بريد إلكتروني صحيح';
+                      // }
                       return null;
                     },
                   ),
@@ -97,12 +97,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return 'من فضلك أدخل كلمة المرور';
                       }
                       // Regular expression for password validation
-                      final RegExp passwordRegExp = RegExp(
-                        r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-                      );
-                      if (!passwordRegExp.hasMatch(value)) {
-                        return 'يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، حرف كبير، حرف صغير، رقم، وحرف خاص';
-                      }
+                      // final RegExp passwordRegExp = RegExp(
+                      //   r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+                      // );
+                      // if (!passwordRegExp.hasMatch(value)) {
+                      //   return 'يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، حرف كبير، حرف صغير، رقم، وحرف خاص';
+                      // }
                       return null;
                     },
                   ),
@@ -152,6 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         await _firestore.collection('users').doc(credential.user!.uid).set({
           'name': _nameController.text,
           'email': _emailController.text,
+          'password': _passwordController.text,
           'createdAt': FieldValue.serverTimestamp()
         });
 

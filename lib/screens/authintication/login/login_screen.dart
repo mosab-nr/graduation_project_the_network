@@ -68,9 +68,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (value == null || value.isEmpty) {
                             return 'من فضلك أدخل كلمة المرور';
                           }
-                          if (value.length < 8) {
-                            return 'يجب أن تتكون كلمة المرور من 8 خانات على الأقل';
-                          }
+                          // if (value.length < 8) {
+                          //   return 'يجب أن تتكون كلمة المرور من 8 خانات على الأقل';
+                          // }
                           return null;
                         },
                       ),
